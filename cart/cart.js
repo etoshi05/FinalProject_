@@ -28,7 +28,7 @@ function displayCart() {
     cart.forEach((item, index) => {
         const li = document.createElement('li');
         li.textContent = `${item.name} - $${item.price}`;
-        // 添加刪除按鈕
+
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = '刪除';
         deleteBtn.onclick = () => deleteContent(index);
