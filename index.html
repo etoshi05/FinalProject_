@@ -3,484 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Resume</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        /* 版面 */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #FF9A8B, #FF6A88, #FF99AC);
-            color: #333;
-            display: flex;
-            justify-content: center;
-            padding: 20px;
-        }
-        .container {
-            width: 60%; 
-            max-width: 1800px; 
-            background-color: #fff;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-            transition: transform 0.3s;
-        }   
-
-        .container:hover {
-            transform: scale(1.02);
-        }
-        
-        /* 頁面標題 */
-        header {
-            background: linear-gradient(135deg, #FF6A88, #FF99AC);
-            color: #fff;
-            text-align: center;
-            padding: 40px 20px;
-            border-radius: 15px 15px 0 0;
-        }
-        header .photo {
-            width: 120px;
-            height: 120px;
-            background-color: #eee;
-            border-radius: 50%;               
-            margin: 0 auto 20px;             
-            border: 4px solid #fff;            
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
-            overflow: hidden;               
-        }
-
-        header .photo img {
-            width: 100%;                       
-            height: 100%;                      
-            object-fit: cover;               
-        }
-
-        header h1 {
-            font-size: 2em;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-        header p, header blockquote {
-            font-size: 1em;
-            opacity: 0.9;
-        }
-
-        /* 目錄 */
-        nav {
-            background-color: #FFEBEE;
-            padding: 10px;
-            display: flex;
-            justify-content: space-around;
-            border-bottom: 2px solid #ffd1dc;
-        }
-        nav a {
-            color: #FF6A88;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        nav a:hover {
-            background-color: #FFE0E6;
-        }
-
-        /* 主要內容 */
-        section {
-            padding: 30px 20px;
-            border-bottom: 1px solid #ffd1dc;
-            background-color: #fff7f8;
-        }
-        section h2 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            color: #FF6A88;
-            text-align: center;
-            position: relative;
-        }
-        section h2::after {
-            content: '';
-            width: 50px;
-            height: 3px;
-            background-color: #FF6A88;
-            display: block;
-            margin: 10px auto 0;
-            border-radius: 2px;
-        }
-        article {
-            text-align: center;
-            padding: 20px;
-        }
-        article p, article img {
-            margin: 10px 0;
-        }
-        /* 關於我 CSS */
-        #about .content {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-        }           
-
-        #about .text {
-            flex: 2;
-            text-align: left;
-        }
-
-        #about .image {
-            flex: 1;
-            display: flex;
-            justify-content: flex-end;
-        }
-
-        #about .image img {
-            width: 100%;
-            max-width: 300px; 
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        #about ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 10px 0;
-        }
-
-        #about li {
-            font-size: 1em;
-            margin-bottom: 8px;
-            color: #333;
-        }
-
-        /* 技能 CSS */
-        .skills-container {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .skill {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-size: 0.9em;
-            color: #333;
-        }
-
-        .skill-circle {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: conic-gradient(#FF6A88 calc(var(--percent) * 1%), #ddd 0);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .skill-circle::before {
-            content: attr(data-percent) '%';
-            position: absolute;
-            color: #333;
-            font-weight: bold;
-        }
-
-        /* 興趣CSS */
-        .hobbies {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .hobbies div {
-            background: linear-gradient(135deg, #FF9A8B, #FF6A88);
-            color: #fff;
-            border-radius: 10px;
-            width: 100px;
-            height: 100px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9em;
-            flex-direction: column;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .hobbies div:hover {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, #FF6A88, #FF99AC);
-        }
-
-        /* 作品集CSS */
-        .portfolio-gallery {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .portfolio-gallery img {
-            width: 250px;
-            height: 250px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .portfolio-gallery img:hover {
-            transform: scale(1.05);
-        
-        }
-
-        /* 經歷CSS */
-        .experience-item {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            background-color: #FFF0F3;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .experience-item img {
-            width: 100px;
-            height: 100px;
-            margin-right: 15px;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        /*更多照片*/
-        .more-photos {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
-        .more-photos img {
-            width: 250px;
-            height: 250px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s;
-        }
-        .more-photos img :hover {
-            transform: scale(1.05);
-        
-        }
-
-        /* 聯絡 */
-        footer {
-            background: linear-gradient(135deg, #FF6A88, #FF99AC);
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            border-radius: 0 0 15px 15px;
-        }
-        footer p, footer .social-media a {
-            color: #fff;
-        }
-        .social-media a {
-            margin: 0 10px;
-            font-size: 1.5em;
-            transition: color 0.3s;
-        }
-        .social-media a:hover {
-            color: #FFE0E6;
-        }
-        .social-media a {
-            display: inline-flex;
-            align-items: center;
-            color: #fff;
-            margin: 0 10px;
-            font-size: 1.2em;
-            transition: color 0.3s;
-        }
-        .social-media a i {
-            margin-right: 8px; 
-        }   
-
-    </style>
+    <title>期末專案</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-    <div class="container">
-        <!-- 標題 -->
-        <header>
-            <div class="photo">
-                <img src="image/個人照.png" alt="">
-            </div>
-            <h1>林子庭</h1>
-            <p>中原大學 資管二甲 11244145</p>
-            <blockquote>「努力不是為了別人  而是為了自己」</blockquote>
-        </header>
-
-        <!-- 目錄 -->
+    <header>
+        <div class="logo">
+            <a href="index.html">閃亮亮飾品店</a>
+        </div>
         <nav>
-            <a href="#about">關於我</a>
-            <a href="#skills">技能</a>
-            <a href="#hobbies">興趣</a>
-            <a href="#portfolio">作品集</a>
-            <a href="#experience">個人經歷</a>
-            <a href="#more-photos">更多照片</a>
+            <ul class="menu">
+                <li class="dropdown">
+                    <a href="#" ><img src="images/asset/user-interface.png"  width="30" height="30" ></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="profile/profile.html" data-text="Orderinquiry">訂單查詢</a></li>
+                        <li><a href="collection/collection.html" data-text="Mycollection">我的收藏</a></li>
+                        <li><a href="profile/profile.html" data-text="MyCoupons">我的優惠券</a></li>
+                        <li><a href="login/login.html" data-text="Memberloginregistration">會員登入/註冊</a></li>
+                    </ul>
+                </li>
+                <li><a href="cart/cart.html"><img src="images/asset/shopping-cart.png"  width="30" height="30" ><span class="cart-count">0</span></a></li>
+                <li>
+                    <select id="language-select">
+                        <option value="zh-TW">中文 (繁體)</option>
+                        <option value="en">English</option>
+                    </select>
+                </li>
+                <li>
+                    <select id="currency-select">
+                        <option value="TWD">TWD</option>
+                        <option value="USD">USD</option>
+                    </select>
+                </li>
+            </ul>
         </nav>
 
-        <!-- 關於我 -->
-        <section id="about">
-            <article>
-                <h2>關於我</h2>
-                <p>國小/國中/高中: 新北市私立裕德雙語高級中學<p></p>
-                <p>喜歡看漫畫、玩PC或是手遊、偶爾也會電繪創作。<p>
-                <p>各領域基本上都有涉及一點，擅長跑步，高中曾有參與合球隊也有比賽，但因太晚加入導致無法有機會上場。</p> 
-                <p>對設計相當有興趣，原想當插畫家，但科技的進展發現需要學習更多資訊類的知識，故選擇資管系增進知識。</p>
-                <p>曾有去素描工作室體驗過，但應學校課業無法持續上課，但對各方面美術仍有興趣。</p>
-                <p>有參與的校園活動及得獎</p>
-                 <u1>
-                    <li>國中部106年第一學期數學學科競試成績優異</li>
-                    <li>國中部106年第一學期生物學科競試成績優異</li>
-                    <li>高中組200公尺決賽-第一名</li>
-                    <li>高中組大隊接力-第一名</li> 
-                    <li>第109學年第36屆全國中正盃合球錦標賽</li> 
-                </u1>
-            </article>
-        </section>
-
-        <!-- 技能 -->
-        <section id="skills">
-            <article>
-                <h2>技能</h2>
-                <div class="skills-container">
-                    <div class="skill" data-percent="80">
-                        <div class="skill-circle"></div>
-                        <p>PYTHON</p>
-                    </div>
-                    <div class="skill" data-percent="70">
-                        <div class="skill-circle"></div>
-                        <p>JAVA</p>
-                    </div>
-                    <div class="skill" data-percent="70">
-                        <div class="skill-circle"></div>
-                        <p>HTML</p>
-                    </div>
-                </div>  
-            </article>
-        </section>
-
-
-
-        <!-- 興趣 -->
-        <section id="hobbies">
-            <article>
-                <h2>興趣</h2>
-                <div class="hobbies">
-                    <div><a href="https://www.threads.net/@etoshi_05?xmt=AQGz7t6hk-g2YMNl6A7CJ8UaGdMaU4-gLMEU5nT-2qwT6-w" target="_blank">畫圖</a></div>
-                    <div><a href="https://www.op.gg/summoners/tw/hiyoko-%E5%91%B1%E5%91%B1%E9%AE%AE%E6%A3%AE" target="_blank">PC 遊戲</a></div>
-                    <div><a href="https://www.youtube.com/watch?v=BgR_HJ7aGDY" target="_blank">聽音樂<br>(K/J-POP)</a></div>
-                    <div><a href="https://acg.gamer.com.tw/acgDetail.php?s=52206" target="_blank">動漫</a></div>
-                </div>
-            </article>
-        </section>
-        
-
-        <!-- 作品集 -->
-        <section id="portfolio">
-            <article>
-                <h2>作品集</h2>
-                <div class="portfolio-gallery">
-                    <figure>
-                        <img src="image/小痛 千千菟oc.jpg" alt="小痛-千千菟OC">
-                        <figcaption>小痛-千千菟OC</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="image/2023新年賀圖夏無.png" alt="2023新年賀圖-夏無">
-                        <figcaption>2023新年賀圖-夏無</figcaption>
-                    </figure>
-                    <figure>
-                        <img src="image/個人oc.png" alt="個人OC">
-                        <figcaption>個人OC</figcaption>
-                    </figure>
-                </div>
-            </article>
-        </section>
-        
-
-        <!-- 個人經歷 -->
-        <section id="experience">
-            <article>
-                <h2>個人經歷</h2>
-                <div class="experience-item">
-                    <img src="image/熱舞社.jpg" alt="Experience 1">
-                    <p><a href="https://www.youtube.com/watch?v=lwXPHTx6ttA&t=100s" target="_blank">參與大學熱舞社 期初小成發:</a>在台下看似簡單，在台上卻是花費了3個月以上的心血以及努力，各組互相合作配合共同完成了一場演出，培養分工合作以及在台上的適應感。</p>
-                    <p></p>
-                </div>
-                <div class="experience-item">
-                    <img src="image/幼稚園.jpg" alt="Experience 2">
-                    <p>曾在烤肉店打工和幼稚園幫忙行政事務:趁著暑假閒餘去幼稚園幫忙處理文書工作，如在人手不足也會進班照顧小孩，為未來文書處理能力增加歷練。</p>
-                </div>
-            </article>
-        </section>
-
-        <!--更多照片-->
-        <section id="more-photos">
-            <article>
-                <h2>更多照片</h2>
-                <div class="more-photos">
-                    <figure>
-                        <img src="image/競試1.jpg" alt="更多照片1">
-                    </figure>
-                    <figure>
-                        <img src="image/跑步得獎照.jpg" alt="更多照片2">
-                    </figure>
-                    <figure>
-                        <img src="image/更多照片3.jpg" alt="更多照片3">
-                    </figure>
-                    <figure>
-                        <img src="image/競試2.jpg" alt="更多照片4">
-                    </figure>
-                    <figure>
-                        <img src="image/更多照片5.jpg" alt="更多照片5">
-                    </figure>
-                    <figure>
-                        <img src="image/更多照片6.jpg" alt="更多照片6">
-                    </figure>
-                </div>
-            </article>
-        </section>
-
-        </section>
-
-        <!-- 聯絡 -->
-        <footer>
-            <h3>聯絡資訊</h3>
-            <p>Email: ting94118@gmail.com</p>
-            <p>Discord:.hiyoko</p>
-            <div class="social-media">
-                <a href="https://www.instagram.com/etoshi_05/" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="mailto:ting94118@gmail.com" target="_blank">
-                    <i class="fas fa-envelope"></i>
-                </a>
-                <a href="https://www.instagram.com/zitin.__/" target="_blank">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://x.com/miko9887" target="_blank">
-                    <i class="fab fa-twitter"></i>
-                </a>
+        <div class="modal-overlay" id="modal">
+            <div id="countdown-container">
+                <button class="close-button" id="close-button">×</button>
+                <p>特價倒數：<span id="countdown-timer"></span></p>
+                <p>限時優惠商品，快來選購！</p>
             </div>
-        </footer>       
+        </div>
+        
+    </header>
+    
+    <div class="content">
+        <h1 data-text="welcome">歡迎來到購物網站</h1>
+        <p data-text="explore">探索您的時尚選擇，開始購物吧！</p>
+        <nav class="submenu">
+            <a href="introduce/introduce.html" data-text="introduce">介紹</a>
+            <div class="dropdown">
+                <a href="#" class="dropdown-toggle" data-text="category">種類</a>
+                <ul class="dropdown-menu">
+                    <li><a href="#Necklace" data-text="necklace">項鍊</a></li>
+                    <li><a href="#Earrings" data-text="earrings">耳環</a></li>
+                    <li><a href="#Rings" data-text="rings">戒指</a></li>
+                </ul>
+            </div>
+        </nav>
+        
+    </div>
+    
+        <!-- 商品展示區 -->
+            <!--項鍊-->
+        <section>
+            <div id="Necklace" class="category-title">
+                <h2 data-text="necklace">項鍊</h2>
+            </div>
+            <div class="product-container">
+                <div class="product" data-id="1" data-name="蝶戀閃耀項鍊," data-price="100">
+                    <img src="images/neck/lilia/blue1-1.avif" alt="Necklace 1">
+                    <h3 data-text="necklace1">
+                        <a href="goods_pages/necklace_1.html">蝶戀閃耀項鍊</a>
+                    </h3>
+                    <p data-text="neckintro1">浪漫蝴蝶造型，搭配耀眼晶鑽，增添柔美氣質。</p>
+                    <p class="price" data-base-price="100">NT$1000</p>
+                    <button class="add-to-cart" data-text="cart">加入購物車</button>
+                    <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+                </div>
+
+                <div class="product" data-id="1" data-name="藍韻晶華項鍊," data-price="100">
+                    <img src="images/neck/una/glod1-2.avif" alt="Necklace 2">
+                    <h3 data-text="necklace2">
+                        <a href="goods_pages/necklace_2.html">藍韻晶華項鍊</a>
+                    </h3>
+                    <p data-text="neckintro2">清新藍水晶點綴，展現優雅自信。</p>
+                    <p class="price" data-base-price="100">NT$1000</p>
+                    <button class="add-to-cart" data-text="cart">加入購物車</button>
+                    <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+                </div>
+                <div class="product" data-id="1" data-name="星影垂光項鍊," data-price="100">
+                    <img src="images/neck/attract/blue1.avif" alt="Necklace 3">
+                    <h3 data-text="necklace3">
+                        <a href="goods_pages/necklace_3.html">星影垂光項鍊</a>
+                    </h3>
+                    <p data-text="neckintro3">流線型垂墜設計，白色晶體優雅迷人。</p>
+                    <p class="price" data-base-price="100">NT$1000</p>
+                    <button class="add-to-cart" data-text="cart">加入購物車</button>
+                    <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+                </div>
+                <div class="product" data-id="1" data-name="心繫結愛項鍊," data-price="100">
+                    <img src="images/neck/hyperbola/1-1.avif" alt="Necklace 4">
+                    <h3 data-text="necklace4">
+                        <a href="goods_pages/necklace_4.html">心繫結愛項鍊</a>
+                    </h3>
+                    <p data-text="neckintro4">蝴蝶結象徵愛與美，輕鬆打造甜美風格。</p>
+                    <p class="price" data-base-price="100">NT$1000</p>
+                    <button class="add-to-cart" data-text="cart">加入購物車</button>
+                    <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+                </div>
+            </div>
+    </section>
+        <!--耳環-->
+    <section>
+        <div id="Earrings" class="category-title">
+            <h2 data-text="earrings">耳環</h2>
+        </div>
+        <div class="product-container">
+            <div class="product" data-id="1" data-name="抗敏素鋼耳環," data-price="100">
+                <img src="images/earrings/KIRSTYHUGGIE/black1-1.avif"  alt="Earrings 1 ">
+                <h3 data-text="earrings1">
+                    <a href="goods_pages/earring_1.html">抗敏素鋼耳環</a>
+                </h3>
+                <p data-text="earintro1">醫療鋼材質耐用抗敏，適合日常佩戴。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="星耀之心耳針," data-price="100">
+                <img src="gimages/earrings/LUX/sliver1-1.avif" alt="Earrings 2">
+                <h3 data-text="earrings2">
+                    <a href="goods_pages/earring_2.html">星耀之心耳針</a>
+                </h3>
+                <p data-text="earintro2">星光閃爍設計，展現迷人魅力。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="流星月語耳環," data-price="100">
+                <img src="images/earrings/Tiana/1.avif" alt="Earrings 3">
+                <h3 data-text="earrings3">
+                    <a href="goods_pages/earring_3.html">流星月語耳環</a>
+                </h3>
+                <p data-text="earintro3">星月造型搭配長流蘇，增添浪漫氣息。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="水晶六芒耳環," data-price="100">
+                <img src="images/earrings/SIX/gold2.avif" alt="Earrings 4">
+                <h3 data-text="earrings4">
+                    <a href="goods_pages/earring_4.html">晶六芒耳環</a>
+                </h3>
+                <p data-text="earintro4">六邊形搭配晶石，手工打造時尚氣息。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+        </div>
+
+            <!--戒指-->
+    <section>
+        <div id="Rings" class="category-title">
+            <h2 data-text="rings">戒指</h2>
+        </div>
+        <div class="product-container">
+            <div class="product" data-id="1" data-name="銀月星辰戒指," data-price="100">
+                <img src="images/ring/1/ring1.png"  alt="Rings 1 ">
+                <h3 data-text="rings1">
+                    <a href="goods_pages/ring_1.html">銀月星辰戒指</a>
+                </h3>
+                <p data-text="ringsintro1">滿天星元素，簡約設計展現高級感。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="蝶結心語戒指," data-price="100">
+                <img src="images/ring/2/ring2.png" alt="Rings 2">
+                <h3 data-text="rings2">
+                    <a href="goods_pages/ring_2.html">蝶結心語戒指</a>
+                </h3>
+                <p data-text="ringsintro2">純銀打造的甜美設計，散發優雅韻味。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="花漾鏤空戒指," data-price="100">
+                <img src="images/ring/3/ring3.png" alt="Rings 3">
+                <h3 data-text="rings3">
+                    <a href="goods_pages/ring_3.html">花漾鏤空戒指</a>
+                </h3>
+                <p data-text="ringsintro3">精緻花紋搭配鏤空設計，適合各種場合。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+
+            </div>
+            <div class="product" data-id="1" data-name="星華圓舞戒指," data-price="100">
+                <img src="images/ring/4/ring4.png" alt="Rings 4">
+                <h3 data-text="rings4">
+                    <a href="goods_pages/ring_4.html">星華圓舞戒指</a>
+                </h3>
+                <p data-text="ringsintro4">星形光環設計，為指尖增添閃耀光彩。</p>
+                <p class="price" data-base-price="100">NT$1000</p>
+                <button class="add-to-cart" data-text="cart">加入購物車</button>
+                <button class="add-to-collection" data-id="1" data-name="商品名稱" data-price="100">加入收藏</button>
+            </div>
+        </div>
+</section>
+
+
+    <footer>
+        <a href="https://www.facebook.com/"><img src="images/contact/facebook.png" width="40" height="40"></a>
+        <a href="https://www.instagram.com/"><img src="images/contact/instagram.png" width="40" height="40"></a>
+        <a href="https://www.line.me/tw/"><img src="images/contact/line.png" width="40" height="40"></a>
+        <a href="https://mail.google.com/mail/"><img src="images/contact/gmail.png" width="40" height="40"></a>
+        <img src="images/contact/telephone.PNG" width="40" height="40">
+        <p>© 2024</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
-
-<!--java圓餅圖-->>
-<script>
-    document.querySelectorAll('.skill').forEach(skill => {
-        const percent = skill.getAttribute('data-percent');
-        skill.querySelector('.skill-circle').style.setProperty('--percent', percent);
-        skill.querySelector('.skill-circle').setAttribute('data-percent', percent);
-    });
-</script>
-
 </html>
